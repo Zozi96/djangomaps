@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% load leaflet_tags %}
+
+{% block title %}
+Ubucación
+{% endblock %}
+
+{% block head %}
+    {% leaflet_css %} {% leaflet_js %}
+{% endblock %} 
+
+{% block content %}
+<div>
+ <h1 style="text-align: center; color: #ffffff;"><b><font size="+3">Super mercado</font></b></h1>
+    <h2 style= "color: #ffffff;"><b><i>{{ market.store }}</i></b></h2>
+    {% leaflet_map "main" callback="map_init" %}
+</div>
+
+<style>
+    .leaflet-container {  /* all maps */
+        width:  1450px;
+        height: 700px;
+    }
+
+    #specialbigmap {
+        height: 800px;
+    }
+
+    /* Resize the "display_raw" textbox */
+    .django-leaflet-raw-textarea {
+        width: 100%;
+    }
+
+    body {
+    background-color: #000000;
+}
+h1 {
+  border-style: solid;
+}
+h2 {
+  text-align: center;
+}
+</style>
+
+<script type="text/javascript">
+    function map_init(map, options) {
+
+        // get point lat and lon
+        var lon = "{{ market.geos.x }}";
+        var lat = "{{ market.geos.y }}";
+        // zoom to point & add it to map
+        map.setView([lat, lon], 17);
+        L.marker([lat, lon]).addTo(map);
+    }
+</script>
+{% endblock %}

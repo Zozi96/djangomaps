@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Listas de escuelas{% endblock %}
+
+{% block content %}
+<a href="{% url 'create' %}">Agregar</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Escuela</th>
+        </thead>
+        {% for data in object_list %}
+        <tr>
+            <td>{{ data.store }}</td>
+            <td>
+                <a href="{% url 'detail' data.pk %}">Ubucación</a>
+                <a href="{% url 'delete' data.pk %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
